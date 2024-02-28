@@ -1,3 +1,7 @@
 .task {
   padding-bottom: 15px;
 }
+
+.task-title {
+  margin-left: 8px;
+}
