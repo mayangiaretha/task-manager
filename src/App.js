@@ -3,14 +3,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 import Routes from "./router";
+import { storedTasks } from "./utils/utils";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [event, setEvent] = useState(false);
 
   useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
     setTasks(storedTasks);
-  }, []);
+  }, [event]);
 
   const addTask = newTask => {
     const updatedTasks = [...tasks, newTask];
@@ -20,7 +21,7 @@ function App() {
   return (
     <div className="app">
       <Router>
-        <Routes addTask={addTask} tasks={tasks} />
+        <Routes addTask={addTask} tasks={tasks} setEvent={setEvent} event={event} />
       </Router>
     </div>
   );

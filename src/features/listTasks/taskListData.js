@@ -1,4 +1,4 @@
-export const TaskList = [
+const TaskList = [
   {
     id: 1,
     name: "Task 1",
@@ -21,3 +21,5 @@ export const TaskList = [
     completed: false
   }
 ];
+
+export default TaskList;

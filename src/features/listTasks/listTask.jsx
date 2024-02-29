@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import "../../styles/styles.css";
-import "./listTask.css";
 import Button from "../../elements/button/button";
+import TaskList from "./taskList";
 
-const ListTask = ({ tasks }) => {
+import { storedTasks } from "../../utils/utils";
+
+const ListTask = ({ tasks, setEvent, event }) => {
+
+
+  const handleDelete = taskId => {
+    // Find the index of the task to delete
+    const taskIndex = storedTasks.findIndex(task => task.id === taskId);
+
+    if (taskIndex !== -1) {
+      // Remove the task from storedTasks
+      storedTasks.splice(taskIndex, 1);
+
+      // Update local storage with the modified storedTasks
+      localStorage.setItem("tasks", JSON.stringify(storedTasks));
+
+      setEvent(!event);
+
+      console.log("Task with ID:", taskId, "deleted successfully.");
+    } else {
+      console.log("Task with ID:", taskId, "not found.");
+    }
+  };
+
   return (
     <div className="list-container">
-      <h1>Welcome </h1>
+      <h1>Tasks</h1>
 
       {tasks.length === 0 ? (
         <div className="task-title">No current tasks</div>
       ) : (
-        tasks.map(({ id, name, description, dueDate, completed }, i) => (
-          <div key={id} className="task">
-            <div>{name}</div>
-            <div>
-              <span>{description}</span>&nbsp;&nbsp;&nbsp;<span>{dueDate}</span>{" "}
-              <span>
-                <Link to="/">Edit</Link>
-              </span>
-            </div>
-          </div>
-        ))
+        <>
+          <TaskList tasks={tasks} onDelete={handleDelete} />
+        </>
       )}
 
       <Link to="/addTask">

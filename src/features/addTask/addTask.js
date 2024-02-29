@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 import "../../styles/styles.css";
 import "./addTask.css";
-import Button from "../../elements/button/button";
 import Form from "../../components/Form";
 
 const AddTask = ({ addTask }) => {
@@ -13,13 +12,14 @@ const AddTask = ({ addTask }) => {
     const { name, value } = e.target;
     setTask(prevTask => ({
       ...prevTask,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     if (!task.name.trim() || !task.description.trim() || !task.dueDate.trim()) return;
+    task.id = uuidv4()
     addTask(task);
     setTask({ name: "", description: "", dueDate: "" });
   };

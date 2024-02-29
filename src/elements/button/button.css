@@ -1,5 +1,10 @@
+.button-grid {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+}
+
 .btn {
-  padding: 8px 16px;
+  padding: 8px 20px;
   border: none;
   border-radius: 4px;
   color: #fff;
